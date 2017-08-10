@@ -173,6 +173,10 @@ const struct command_s efm32_cmd_list[] = {
 #define EFM32_DI_PART_FAMILY_WONDER_GECKO	75
 #define EFM32_DI_PART_FAMILY_ZERO_GECKO		76
 #define EFM32_DI_PART_FAMILY_HAPPY_GECKO	77
+
+#define EFM32_DI_PART_FAMILY_PEARL_GECKO	81
+#define EFM32_DI_PART_FAMILY_JADE_GECKO		83
+
 #define EFM32_DI_PART_FAMILY_EZR_WONDER_GECKO	120
 #define EFM32_DI_PART_FAMILY_EZR_LEOPARD_GECKO	121
 
@@ -268,6 +272,8 @@ bool efm32_probe(target *t)
 	uint16_t radio_number, radio_number_short;  /* optional, for ezr parts */
 	uint32_t flash_page_size; uint16_t flash_kb;
 
+	DEBUG("efm32_probe - part_number: %d part_family: %d\n", part_number, part_family);
+
 	switch(part_family) {
 		case EFM32_DI_PART_FAMILY_GECKO:
 			sprintf(variant_string,
@@ -303,6 +309,16 @@ bool efm32_probe(target *t)
 			sprintf(variant_string,
 				"EFM32 Happy Gecko");
 			flash_page_size = 1024;
+			break;
+		case EFM32_DI_PART_FAMILY_JADE_GECKO:
+			sprintf(variant_string,
+				"EFM32 Jade Gecko (rev 1B)");
+			flash_page_size = 2048;
+			break;
+		case EFM32_DI_PART_FAMILY_HAPPY_GECKO:
+			sprintf(variant_string,
+				"EFM32 Pearl Gecko (rev 1B)");
+			flash_page_size = 2048;
 			break;
 		case EFM32_DI_PART_FAMILY_EZR_WONDER_GECKO:
 			radio_number = efm32_read_radio_part_number(t); /* on-chip radio */
