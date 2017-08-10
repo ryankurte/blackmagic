@@ -62,21 +62,18 @@ const struct command_s efm32_cmd_list[] = {
 };
 
 
-
 /* -------------------------------------------------------------------------- */
 /* Memory System Controller (MSC) Registers */
 /* -------------------------------------------------------------------------- */
-#define DRACO
 
-#ifdef DRACO
-#define EFM32_MSC					0x400e0000
-#define EFM32_MSC_LOCK				(EFM32_MSC+0x040)
-#define EFM32_MSC_CMD				(EFM32_MSC+0x074)
-#else
 #define EFM32_MSC					0x400c0000
 #define EFM32_MSC_LOCK				(EFM32_MSC+0x03c)
 #define EFM32_MSC_CMD				(EFM32_MSC+0x040)
-#endif
+
+#define EFM32_G2_MSC					0x400e0000
+#define EFM32_G2_MSC_LOCK				(EFM32_MSC+0x040)
+#define EFM32_G2_MSC_CMD				(EFM32_MSC+0x074)
+
 
 #define EFM32_MSC_WRITECTRL			(EFM32_MSC+0x008)
 #define EFM32_MSC_WRITECMD			(EFM32_MSC+0x00c)
@@ -107,8 +104,8 @@ const struct command_s efm32_cmd_list[] = {
 /* -------------------------------------------------------------------------- */
 
 #define EFM32_INFO			0x0fe00000
-#define EFM32_USER_DATA			(EFM32_INFO+0x0000)
-#define EFM32_LOCK_BITS			(EFM32_INFO+0x4000)
+#define EFM32_USER_DATA		(EFM32_INFO+0x0000)
+#define EFM32_LOCK_BITS		(EFM32_INFO+0x4000)
 #define EFM32_DI			(EFM32_INFO+0x8000)
 
 
@@ -117,91 +114,106 @@ const struct command_s efm32_cmd_list[] = {
 /* -------------------------------------------------------------------------- */
 
 
-#define EFM32_DI_RADIO_REV_MIN 		(EFM32_DI+0x1AC)
-#define EFM32_DI_RADIO_REV_MAJ 		(EFM32_DI+0x1AD)
-#define EFM32_DI_RADIO_OPN 			(EFM32_DI+0x1AE)
-
 // Gen 1 DI
-#define EFM32_DI_DI_CRC 			(EFM32_DI+0x1B0)
-#define EFM32_DI_MEM_INFO_PAGE_SIZE (EFM32_DI+0x1E7)
-#define EFM32_DI_RADIO_ID 			(EFM32_DI+0x1EE)
-#define EFM32_DI_EUI64_0 			(EFM32_DI+0x1F0)
-#define EFM32_DI_EUI64_1 			(EFM32_DI+0x1F4)
-#define EFM32_DI_MEM_INFO_FLASH 	(EFM32_DI+0x1F8)
-#define EFM32_DI_MEM_INFO_RAM 		(EFM32_DI+0x1FA)
-#define EFM32_DI_PART_NUMBER 		(EFM32_DI+0x1FC)
-#define EFM32_DI_PART_FAMILY 		(EFM32_DI+0x1FE)
-#define EFM32_DI_PROD_REV 			(EFM32_DI+0x1FF)
+#define EFM32_G1_DI_BASE			(EFM32_INFO + 0x8000)
+
+#define EFM32_DI_DI_CRC 			(EFM32_G1_DI_BASE + 0x1B0)
+#define EFM32_DI_MEM_INFO_PAGE_SIZE (EFM32_G1_DI_BASE + 0x1E7)
+#define EFM32_DI_EUI64_0 			(EFM32_G1_DI_BASE + 0x1F0)
+#define EFM32_DI_EUI64_1 			(EFM32_G1_DI_BASE + 0x1F4)
+#define EFM32_DI_MEM_INFO_FLASH 	(EFM32_G1_DI_BASE + 0x1F8)
+#define EFM32_DI_MEM_INFO_RAM 		(EFM32_G1_DI_BASE + 0x1FA)
+#define EFM32_DI_PART_NUMBER 		(EFM32_G1_DI_BASE + 0x1FC)
+#define EFM32_DI_PART_FAMILY 		(EFM32_G1_DI_BASE + 0x1FE)
+#define EFM32_DI_PROD_REV 			(EFM32_G1_DI_BASE + 0x1FF)
+
+#define EFM32_DI_RADIO_REV_MIN 		(EFM32_G1_DI_BASE + 0x1AC)
+#define EFM32_DI_RADIO_REV_MAJ 		(EFM32_G1_DI_BASE + 0x1AD)
+#define EFM32_DI_RADIO_OPN 			(EFM32_G1_DI_BASE + 0x1AE)
+#define EFM32_DI_RADIO_ID 			(EFM32_G1_DI_BASE + 0x1EE)
 
 // Gen 2 DI
-#define EFM32_G2_DI_CRC 			0x000 	// CRC of DI-page and calibration temperature (RO)
-#define EFM32_G2_DI_EUI48L 			0x028 	// EUI48 OUI and Unique identifier (RO)
-#define EFM32_G2_DI_EUI48H 			0x02 	// OUI (RO)
-#define EFM32_G2_DI_CUSTOMINFO 		0x030 	// Custom information (RO)
-#define EFM32_G2_DI_MEMINFO 		0x034 	// Flash page size and misc. chip information (RO)
-#define EFM32_G2_DI_UNIQUEL 		0x040 	// Low 32 bits of device unique number (RO)
-#define EFM32_G2_DI_UNIQUEH 		0x044 	// High 32 bits of device unique number (RO)
-#define EFM32_G2_DI_MSIZE 			0x048 	// Flash and SRAM Memory size in kB (RO)
-#define EFM32_G2_DI_PART 			0x04 	// Part description (RO)
-#define EFM32_G2_DI_DEVINFOREV 		0x050 	// Device information page revision (RO)
+#define EFM32_G2_DI_BASE			(EFM32_INFO + 0x81B0)
+
+#define EFM32_G2_DI_CRC 				(EFM32_G2_DI_BASE + 0x000) 	// CRC of DI-page and calibration temperature (RO)
+#define EFM32_G2_DI_EUI48L 				(EFM32_G2_DI_BASE + 0x028) 	// EUI48 OUI and Unique identifier (RO)
+#define EFM32_G2_DI_EUI48H 				(EFM32_G2_DI_BASE + 0x02C) 	// OUI (RO)
+#define EFM32_G2_DI_CUSTOMINFO 			(EFM32_G2_DI_BASE + 0x030) 	// Customer information (RO)
+#define EFM32_G2_DI_MEMINFO 			(EFM32_G2_DI_BASE + 0x034) 	// Flash page size and misc. chip information (RO)
+#define EFM32_G2_DI_MEMINFO_PAGESIZE	(EFM32_G2_MEMINFO + 0x003)	// Flash memory page size (RO) (8-bit) `size = 2 ^ ((MEM_INFO_PAGE_SIZE + 10) & 0xFF)`
+#define EFM32_G2_DI_UNIQUEL 			(EFM32_G2_DI_BASE + 0x040) 	// Low 32 bits of device unique number (RO)
+#define EFM32_G2_DI_UNIQUEH 			(EFM32_G2_DI_BASE + 0x044) 	// High 32 bits of device unique number (RO)
+#define EFM32_G2_DI_MSIZE 				(EFM32_G2_DI_BASE + 0x048) 	// Flash and SRAM Memory size in kB (RO) (32-bit)
+#define EFM32_G2_DI_MSIZE_FLASH			(EFM32_G2_DI_MSIZE + 0x000) // Flash Memory size in kB (RO) (16-bit)
+#define EFM32_G2_DI_MSIZE_SRAM			(EFM32_G2_DI_MSIZE + 0x002) // SRAM Memory size in kB (RO) (16-bit)
+#define EFM32_G2_DI_PART 				(EFM32_G2_DI_BASE + 0x04C) 	// Part description (RO) (32-bit)
+#define EFM32_G2_DI_PART_NUMBER 		(EFM32_G2_DI_PART + 0x000)	// Part number (RO) (16-bit)
+#define EFM32_G2_DI_PART_FAMILY 		(EFM32_G2_DI_PART + 0x002)	// Part Family (RO) (8-bit)
+#define EFM32_G2_DI_PART_REV	  		(EFM32_G2_DI_PART + 0x003)	// Part Revision (RO) (8-bit)
+#define EFM32_G2_DI_DEVINFOREV 			(EFM32_G2_DI_BASE + 0x050) 	// Device information page revision (RO)
 
 /* top 24 bits of eui */
 #define EFM32_DI_EUI_SILABS	0x000b57
 
+// Enumeration to switch between device generations
+enum efm32_generation_e {
+	EFM32_G1,
+	EFM32_G2
+}
 
 // Struct to enumerate different devices
 typedef struct {
 	uint16_t 	family;  			// Family for device matching
 	char* 	 	name;	 			// Friendly device family name
+	uint32_t 	gen;				// Device generation for DI / MSC mapping
 	uint32_t    flash_page_size;	// Flash page size
-	uint32_t 	msc_offset;			// Offset for MSC
 	bool 		has_radio;			// Indicates a device has attached radio
 } efm32_device_t;
 
 efm32_device_t efm32_devices[] = {
 	// Second gen devices micro + Radio
-	{16, "EFR32MG1P", 	2048,	0x400e0000, true},
-	{17, "EFR32MG1B", 	2048,	0x400e0000, true},
-	{18, "EFR32MG1V", 	2048,	0x400e0000, true},
-	{19, "EFR32BG1P", 	2048,	0x400e0000, true},
-	{20, "EFR32BG1B", 	2048,	0x400e0000, true},
-	{21, "EFR32BG1V", 	2048,	0x400e0000, true},
-	{25, "EFR32FG1P", 	2048,	0x400e0000, true},
-	{26, "EFR32FG1B", 	2048,	0x400e0000, true},
-	{27, "EFR32FG1V", 	2048,	0x400e0000, true},
-	{28, "EFR32MG12P", 	2048,	0x400e0000, true},
-	{28, "EFR32MG2P", 	2048,	0x400e0000, true},
-	{29, "EFR32MG12B", 	2048,	0x400e0000, true},
-	{30, "EFR32MG12V", 	2048,	0x400e0000, true},
-	{31, "EFR32BG12P", 	2048,	0x400e0000, true},
-	{32, "EFR32BG12B", 	2048,	0x400e0000, true},
-	{33, "EFR32BG12V", 	2048,	0x400e0000, true},
-	{37, "EFR32FG12P", 	2048,	0x400e0000, true},
-	{38, "EFR32FG12B", 	2048,	0x400e0000, true},
-	{39, "EFR32FG12V", 	2048,	0x400e0000, true},
-	{40, "EFR32MG13P", 	2048,	0x400e0000, true},
-	{41, "EFR32MG13B", 	2048,	0x400e0000, true},
-	{42, "EFR32MG13V", 	2048,	0x400e0000, true},
-	{43, "EFR32BG13P", 	2048,	0x400e0000, true},
-	{44, "EFR32BG13B", 	2048,	0x400e0000, true},
-	{45, "EFR32BG13V", 	2048,	0x400e0000, true},
-	{49, "EFR32FG13P", 	2048,	0x400e0000, true},
-	{50, "EFR32FG13B", 	2048,	0x400e0000, true},
-	{51, "EFR32FG13V", 	2048,	0x400e0000, true},
+	{16, "EFR32MG1P", 	2048,	EFM32_G2, true},
+	{17, "EFR32MG1B", 	2048,	EFM32_G2, true},
+	{18, "EFR32MG1V", 	2048,	EFM32_G2, true},
+	{19, "EFR32BG1P", 	2048,	EFM32_G2, true},
+	{20, "EFR32BG1B", 	2048,	EFM32_G2, true},
+	{21, "EFR32BG1V", 	2048,	EFM32_G2, true},
+	{25, "EFR32FG1P", 	2048,	EFM32_G2, true},
+	{26, "EFR32FG1B", 	2048,	EFM32_G2, true},
+	{27, "EFR32FG1V", 	2048,	EFM32_G2, true},
+	{28, "EFR32MG12P", 	2048,	EFM32_G2, true},
+	{28, "EFR32MG2P", 	2048,	EFM32_G2, true},
+	{29, "EFR32MG12B", 	2048,	EFM32_G2, true},
+	{30, "EFR32MG12V", 	2048,	EFM32_G2, true},
+	{31, "EFR32BG12P", 	2048,	EFM32_G2, true},
+	{32, "EFR32BG12B", 	2048,	EFM32_G2, true},
+	{33, "EFR32BG12V", 	2048,	EFM32_G2, true},
+	{37, "EFR32FG12P", 	2048,	EFM32_G2, true},
+	{38, "EFR32FG12B", 	2048,	EFM32_G2, true},
+	{39, "EFR32FG12V", 	2048,	EFM32_G2, true},
+	{40, "EFR32MG13P", 	2048,	EFM32_G2, true},
+	{41, "EFR32MG13B", 	2048,	EFM32_G2, true},
+	{42, "EFR32MG13V", 	2048,	EFM32_G2, true},
+	{43, "EFR32BG13P", 	2048,	EFM32_G2, true},
+	{44, "EFR32BG13B", 	2048,	EFM32_G2, true},
+	{45, "EFR32BG13V", 	2048,	EFM32_G2, true},
+	{49, "EFR32FG13P", 	2048,	EFM32_G2, true},
+	{50, "EFR32FG13B", 	2048,	EFM32_G2, true},
+	{51, "EFR32FG13V", 	2048,	EFM32_G2, true},
 	// Second gen micros
-	{81, "EFM32PG1B",	2048,	0x400e0000, false},
-	{83, "EFM32JG1B",	2048,	0x400e0000, false},
+	{81, "EFM32PG1B",	2048,	EFM32_G2 false},
+	{83, "EFM32JG1B",	2048,	EFM32_G2 false},
 	// First gen micros
-	{71, "EFM32G",		512,	0x400c0000, false},
-	{72, "EFM32GG",		2048,	0x400c0000, false},
-	{73, "EFM32TG",		512,	0x400c0000, false},
-	{74, "EFM32LG",		2048,	0x400c0000, false},
-	{75, "EFM32WG",		2048,	0x400c0000, false},
-	{76, "EFM32ZG",		1024,	0x400c0000, false},
-	{77, "EFM32HG",		1024,	0x400c0000, false},
+	{71, "EFM32G",		512,	EFM32_G1, false},
+	{72, "EFM32GG",		2048,	EFM32_G1, false},
+	{73, "EFM32TG",		512,	EFM32_G1, false},
+	{74, "EFM32LG",		2048,	EFM32_G1, false},
+	{75, "EFM32WG",		2048,	EFM32_G1, false},
+	{76, "EFM32ZG",		1024,	EFM32_G1, false},
+	{77, "EFM32HG",		1024,	EFM32_G1, false},
 	// First (1.5) gen micro + radios
-	{120, "EFR32WG",	2048,	0x400c0000, true},
-	{121, "EFR32LG",	2048,	0x400c0000, true},
+	{120, "EFR32WG",	2048,	EFM32_G1, true},
+	{121, "EFR32LG",	2048,	EFM32_G1, true},
 };
 
 /* -------------------------------------------------------------------------- */
@@ -211,52 +223,72 @@ efm32_device_t efm32_devices[] = {
 /**
  * Reads the EFM32 Extended Unique Identifier
  */
-	uint64_t efm32_read_eui(target *t)
-	{
-		uint64_t eui;
+uint64_t efm32_read_eui(target *t, uint16_t gen)
+{
+	uint64_t eui;
 
+	if (gen == EFM32_G1) {
 		eui  = (uint64_t)target_mem_read32(t, EFM32_DI_EUI64_1) << 32;
 		eui |= (uint64_t)target_mem_read32(t, EFM32_DI_EUI64_0) <<  0;
-
-		return eui;
+	} else {
+		eui  = (uint64_t)target_mem_read32(t, EFM32_G2_DI_EUI48H) << 32;
+		eui |= (uint64_t)target_mem_read32(t, EFM32_G2_DI_EUI48L) <<  0;
 	}
+
+	return eui;
+}
 /**
  * Reads the EFM32 flash size in kiB
  */
-uint16_t efm32_read_flash_size(target *t)
+uint16_t efm32_read_flash_size(target *t, uint16_t gen)
 {
-	return target_mem_read16(t, EFM32_DI_MEM_INFO_FLASH);
+	if (gen == EFM32_G1) {
+		return target_mem_read16(t, EFM32_DI_MEM_INFO_FLASH);
+	} else {
+		return target_mem_read16(t, EFM32_G2_DI_MSIZE_FLASH);
+	}
 }
 /**
  * Reads the EFM32 RAM size in kiB
  */
-uint16_t efm32_read_ram_size(target *t)
+uint16_t efm32_read_ram_size(target *t, uint16_t gen)
 {
-	return target_mem_read16(t, EFM32_DI_MEM_INFO_RAM);
+	if (gen == EFM32_G1) {
+		return target_mem_read16(t, EFM32_DI_MEM_INFO_RAM);
+	 else {
+		return target_mem_read16(t, EFM32_G2_DI_MSIZE_RAM);
+	}
 }
 /**
  * Reads the EFM32 Part Number
  */
-uint16_t efm32_read_part_number(target *t)
+uint16_t efm32_read_part_number(target *t, uint16_t gen)
 {
-	return target_mem_read16(t, EFM32_DI_PART_NUMBER);
+	if (gen == EFM32_G1) {
+		return target_mem_read16(t, EFM32_DI_PART_NUMBER);
+	} else {
+		return target_mem_read16(t, EFM32_G2_DI_PART_NUMBER);
+	}
 }
 /**
  * Reads the EFM32 Part Family
  */
-uint8_t efm32_read_part_family(target *t)
+uint8_t efm32_read_part_family(target *t, uint16_t gen)
 {
-	return target_mem_read8(t, EFM32_DI_PART_FAMILY);
+	if (gen == EFM32_G1) {
+		return target_mem_read8(t, EFM32_DI_PART_FAMILY);
+	} else {
+		return target_mem_read8(t, EFM32_G2_DI_PART_FAMILY);
+	}
 }
 /**
  * Reads the EFM32 Radio part number (EZR parts only)
  */
-uint16_t efm32_read_radio_part_number(target *t)
+uint16_t efm32_read_radio_part_number(target *t, uint16_t gen)
 {
+	// TODO: gen switch?
 	return target_mem_read16(t, EFM32_DI_RADIO_OPN);
 }
-
-
 
 
 static void efm32_add_flash(target *t, target_addr addr, size_t length,
