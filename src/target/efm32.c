@@ -116,51 +116,14 @@ const struct command_s efm32_cmd_list[] = {
 /* Device Information (DI) Area */
 /* -------------------------------------------------------------------------- */
 
-#define EFM32_DI_CMU_LFRCOCTRL 		(EFM32_DI+0x020)
-#define EFM32_DI_CMU_HFRCOCTRL 		(EFM32_DI+0x028)
-#define EFM32_DI_CMU_AUXHFRCOCTRL 	(EFM32_DI+0x030)
-#define EFM32_DI_ADC0_CAL 			(EFM32_DI+0x040)
-#define EFM32_DI_ADC0_BIASPROG 		(EFM32_DI+0x048)
-#define EFM32_DI_DAC0_CAL 			(EFM32_DI+0x050)
-#define EFM32_DI_DAC0_BIASPROG 		(EFM32_DI+0x058)
-#define EFM32_DI_ACMP0_CTRL 		(EFM32_DI+0x060)
-#define EFM32_DI_ACMP1_CTRL 		(EFM32_DI+0x068)
-#define EFM32_DI_CMU_LCDCTRL 		(EFM32_DI+0x078)
-#define EFM32_DI_DAC0_OPACTRL 		(EFM32_DI+0x0A0)
-#define EFM32_DI_DAC0_OPAOFFSET 	(EFM32_DI+0x0A8)
-#define EFM32_DI_EMU_BUINACT 		(EFM32_DI+0x0B0)
-#define EFM32_DI_EMU_BUACT 			(EFM32_DI+0x0B8)
-#define EFM32_DI_EMU_BUBODBUVINCAL 	(EFM32_DI+0x0C0)
-#define EFM32_DI_EMU_BUBODUNREGCAL 	(EFM32_DI+0x0C8)
-#define EFM32_DI_MCM_REV_MIN 		(EFM32_DI+0x1AA)
-#define EFM32_DI_MCM_REV_MAJ 		(EFM32_DI+0x1AB)
+
 #define EFM32_DI_RADIO_REV_MIN 		(EFM32_DI+0x1AC)
 #define EFM32_DI_RADIO_REV_MAJ 		(EFM32_DI+0x1AD)
 #define EFM32_DI_RADIO_OPN 			(EFM32_DI+0x1AE)
+
+// Gen 1 DI
 #define EFM32_DI_DI_CRC 			(EFM32_DI+0x1B0)
-#define EFM32_DI_CAL_TEMP_0 		(EFM32_DI+0x1B2)
-#define EFM32_DI_ADC0_CAL_1V25 		(EFM32_DI+0x1B4)
-#define EFM32_DI_ADC0_CAL_2V5 		(EFM32_DI+0x1B6)
-#define EFM32_DI_ADC0_CAL_VDD 		(EFM32_DI+0x1B8)
-#define EFM32_DI_ADC0_CAL_5VDIFF 	(EFM32_DI+0x1BA)
-#define EFM32_DI_ADC0_CAL_2XVDD 	(EFM32_DI+0x1BC)
-#define EFM32_DI_ADC0_TEMP_0_READ_1V25	(EFM32_DI+0x1BE)
-#define EFM32_DI_DAC0_CAL_1V25 		(EFM32_DI+0x1C8)
-#define EFM32_DI_DAC0_CAL_2V5 		(EFM32_DI+0x1CC)
-#define EFM32_DI_DAC0_CAL_VDD 		(EFM32_DI+0x1D0)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_1 	(EFM32_DI+0x1D4)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_7 	(EFM32_DI+0x1D5)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_11 (EFM32_DI+0x1D6)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_14 (EFM32_DI+0x1D7)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_21 (EFM32_DI+0x1D8)
-#define EFM32_DI_AUXHFRCO_CALIB_BAND_28 (EFM32_DI+0x1D9)
-#define EFM32_DI_HFRCO_CALIB_BAND_1 	(EFM32_DI+0x1DC)
-#define EFM32_DI_HFRCO_CALIB_BAND_7 	(EFM32_DI+0x1DD)
-#define EFM32_DI_HFRCO_CALIB_BAND_11 	(EFM32_DI+0x1DE)
-#define EFM32_DI_HFRCO_CALIB_BAND_14 	(EFM32_DI+0x1DF)
-#define EFM32_DI_HFRCO_CALIB_BAND_21 	(EFM32_DI+0x1E0)
-#define EFM32_DI_HFRCO_CALIB_BAND_28 	(EFM32_DI+0x1E1)
-#define EFM32_DI_MEM_INFO_PAGE_SIZE 	(EFM32_DI+0x1E7)
+#define EFM32_DI_MEM_INFO_PAGE_SIZE (EFM32_DI+0x1E7)
 #define EFM32_DI_RADIO_ID 			(EFM32_DI+0x1EE)
 #define EFM32_DI_EUI64_0 			(EFM32_DI+0x1F0)
 #define EFM32_DI_EUI64_1 			(EFM32_DI+0x1F4)
@@ -170,22 +133,76 @@ const struct command_s efm32_cmd_list[] = {
 #define EFM32_DI_PART_FAMILY 		(EFM32_DI+0x1FE)
 #define EFM32_DI_PROD_REV 			(EFM32_DI+0x1FF)
 
+// Gen 2 DI
+#define EFM32_G2_DI_CRC 			0x000 	// CRC of DI-page and calibration temperature (RO)
+#define EFM32_G2_DI_EUI48L 			0x028 	// EUI48 OUI and Unique identifier (RO)
+#define EFM32_G2_DI_EUI48H 			0x02 	// OUI (RO)
+#define EFM32_G2_DI_CUSTOMINFO 		0x030 	// Custom information (RO)
+#define EFM32_G2_DI_MEMINFO 		0x034 	// Flash page size and misc. chip information (RO)
+#define EFM32_G2_DI_UNIQUEL 		0x040 	// Low 32 bits of device unique number (RO)
+#define EFM32_G2_DI_UNIQUEH 		0x044 	// High 32 bits of device unique number (RO)
+#define EFM32_G2_DI_MSIZE 			0x048 	// Flash and SRAM Memory size in kB (RO)
+#define EFM32_G2_DI_PART 			0x04 	// Part description (RO)
+#define EFM32_G2_DI_DEVINFOREV 		0x050 	// Device information page revision (RO)
+
 /* top 24 bits of eui */
 #define EFM32_DI_EUI_SILABS	0x000b57
 
-#define EFM32_DI_PART_FAMILY_GECKO			71
-#define EFM32_DI_PART_FAMILY_GIANT_GECKO	72
-#define EFM32_DI_PART_FAMILY_TINY_GECKO		73
-#define EFM32_DI_PART_FAMILY_LEOPARD_GECKO	74
-#define EFM32_DI_PART_FAMILY_WONDER_GECKO	75
-#define EFM32_DI_PART_FAMILY_ZERO_GECKO		76
-#define EFM32_DI_PART_FAMILY_HAPPY_GECKO	77
 
-#define EFM32_DI_PART_FAMILY_PEARL_GECKO	81
-#define EFM32_DI_PART_FAMILY_JADE_GECKO		83
+// Struct to enumerate different devices
+typedef struct {
+	uint16_t 	family;  			// Family for device matching
+	char* 	 	name;	 			// Friendly device family name
+	uint32_t    flash_page_size;	// Flash page size
+	uint32_t 	msc_offset;			// Offset for MSC
+	bool 		has_radio;			// Indicates a device has attached radio
+} efm32_device_t;
 
-#define EFM32_DI_PART_FAMILY_EZR_WONDER_GECKO	120
-#define EFM32_DI_PART_FAMILY_EZR_LEOPARD_GECKO	121
+efm32_device_t efm32_devices[] = {
+	// Second gen devices micro + Radio
+	{16, "EFR32MG1P", 	2048,	0x400e0000, true},
+	{17, "EFR32MG1B", 	2048,	0x400e0000, true},
+	{18, "EFR32MG1V", 	2048,	0x400e0000, true},
+	{19, "EFR32BG1P", 	2048,	0x400e0000, true},
+	{20, "EFR32BG1B", 	2048,	0x400e0000, true},
+	{21, "EFR32BG1V", 	2048,	0x400e0000, true},
+	{25, "EFR32FG1P", 	2048,	0x400e0000, true},
+	{26, "EFR32FG1B", 	2048,	0x400e0000, true},
+	{27, "EFR32FG1V", 	2048,	0x400e0000, true},
+	{28, "EFR32MG12P", 	2048,	0x400e0000, true},
+	{28, "EFR32MG2P", 	2048,	0x400e0000, true},
+	{29, "EFR32MG12B", 	2048,	0x400e0000, true},
+	{30, "EFR32MG12V", 	2048,	0x400e0000, true},
+	{31, "EFR32BG12P", 	2048,	0x400e0000, true},
+	{32, "EFR32BG12B", 	2048,	0x400e0000, true},
+	{33, "EFR32BG12V", 	2048,	0x400e0000, true},
+	{37, "EFR32FG12P", 	2048,	0x400e0000, true},
+	{38, "EFR32FG12B", 	2048,	0x400e0000, true},
+	{39, "EFR32FG12V", 	2048,	0x400e0000, true},
+	{40, "EFR32MG13P", 	2048,	0x400e0000, true},
+	{41, "EFR32MG13B", 	2048,	0x400e0000, true},
+	{42, "EFR32MG13V", 	2048,	0x400e0000, true},
+	{43, "EFR32BG13P", 	2048,	0x400e0000, true},
+	{44, "EFR32BG13B", 	2048,	0x400e0000, true},
+	{45, "EFR32BG13V", 	2048,	0x400e0000, true},
+	{49, "EFR32FG13P", 	2048,	0x400e0000, true},
+	{50, "EFR32FG13B", 	2048,	0x400e0000, true},
+	{51, "EFR32FG13V", 	2048,	0x400e0000, true},
+	// Second gen micros
+	{81, "EFM32PG1B",	2048,	0x400e0000, false},
+	{83, "EFM32JG1B",	2048,	0x400e0000, false},
+	// First gen micros
+	{71, "EFM32G",		512,	0x400c0000, false},
+	{72, "EFM32GG",		2048,	0x400c0000, false},
+	{73, "EFM32TG",		512,	0x400c0000, false},
+	{74, "EFM32LG",		2048,	0x400c0000, false},
+	{75, "EFM32WG",		2048,	0x400c0000, false},
+	{76, "EFM32ZG",		1024,	0x400c0000, false},
+	{77, "EFM32HG",		1024,	0x400c0000, false},
+	// First (1.5) gen micro + radios
+	{120, "EFR32WG",	2048,	0x400c0000, true},
+	{121, "EFR32LG",	2048,	0x400c0000, true},
+};
 
 /* -------------------------------------------------------------------------- */
 /* Helper functions */
@@ -276,83 +293,30 @@ bool efm32_probe(target *t)
 	/* Read the part number and family */
 	uint16_t part_number = efm32_read_part_number(t);
 	uint8_t part_family = efm32_read_part_family(t);
-	uint16_t radio_number, radio_number_short;  /* optional, for ezr parts */
-	uint32_t flash_page_size; uint16_t flash_kb;
+	uint16_t radio_number;
+	uint32_t flash_page_size;
 
 	DEBUG("efm32_probe - part_number: %d part_family: %d\n", part_number, part_family);
 
-	switch(part_family) {
-		case EFM32_DI_PART_FAMILY_GECKO:
-			sprintf(variant_string,
-				"EFM32 Gecko");
-			flash_page_size = 512;
+	efm32_device_t* device = NULL;
+	for (size_t i=0; i<(sizeof(efm32_devices) / sizeof(efm32_device_t)); i++) {
+		if (efm32_devices[i].family == part_family) {
+			device = &efm32_devices[i];
 			break;
-		case EFM32_DI_PART_FAMILY_GIANT_GECKO:
-			sprintf(variant_string,
-				"EFM32 Giant Gecko");
-			flash_page_size = 2048; /* Could be 2048 or 4096, assume 2048 */
-			break;
-		case EFM32_DI_PART_FAMILY_TINY_GECKO:
-			sprintf(variant_string,
-				"EFM32 Tiny Gecko");
-			flash_page_size = 512;
-			break;
-		case EFM32_DI_PART_FAMILY_LEOPARD_GECKO:
-			sprintf(variant_string,
-				"EFM32 Leopard Gecko");
-			flash_page_size = 2048; /* Could be 2048 or 4096, assume 2048 */
-			break;
-		case EFM32_DI_PART_FAMILY_WONDER_GECKO:
-			sprintf(variant_string,
-				"EFM32 Wonder Gecko");
-			flash_page_size = 2048;
-			break;
-		case EFM32_DI_PART_FAMILY_ZERO_GECKO:
-			sprintf(variant_string,
-				"EFM32 Zero Gecko");
-			flash_page_size = 1024;
-			break;
-		case EFM32_DI_PART_FAMILY_HAPPY_GECKO:
-			sprintf(variant_string,
-				"EFM32 Happy Gecko");
-			flash_page_size = 1024;
-			break;
-		case EFM32_DI_PART_FAMILY_JADE_GECKO:
-			sprintf(variant_string,
-				"EFM32 Jade Gecko (rev 1B)");
-			flash_page_size = 2048;
-			break;
-		case EFM32_DI_PART_FAMILY_HAPPY_GECKO:
-			sprintf(variant_string,
-				"EFM32 Pearl Gecko (rev 1B)");
-			flash_page_size = 2048;
-			break;
-		case EFM32_DI_PART_FAMILY_EZR_WONDER_GECKO:
-			radio_number = efm32_read_radio_part_number(t); /* on-chip radio */
-			radio_number_short = radio_number % 100;
-			flash_kb = efm32_read_flash_size(t);
+		}
+	}
+	
+	if (device == NULL) {
+		return false;
+	}
+	
+	flash_page_size = device->flash_page_size;
 
-			sprintf(variant_string,
-				"EZR32WG%dF%dR%d (radio si%d)",
-				part_number, flash_kb,
-				radio_number_short, radio_number);
-
-			flash_page_size = 2048;
-			break;
-		case EFM32_DI_PART_FAMILY_EZR_LEOPARD_GECKO:
-			radio_number = efm32_read_radio_part_number(t); /* on-chip radio */
-			radio_number_short = radio_number % 100;
-			flash_kb = efm32_read_flash_size(t);
-
-			sprintf(variant_string,
-				"EZR32LG%dF%dR%d (radio si%d)",
-				part_number, flash_kb,
-				radio_number_short, radio_number);
-
-			flash_page_size = 2048;
-			break;
-		default:	/* Unknown family */
-			return false;
+	if (!device->has_radio) {
+		sprintf(variant_string, "%s", device->name);
+	} else {
+		radio_number = efm32_read_radio_part_number(t); /* on-chip radio */
+		sprintf(variant_string, "%s (radio: %d)", device->name, radio_number);
 	}
 
 	/* Read memory sizes, convert to bytes */
